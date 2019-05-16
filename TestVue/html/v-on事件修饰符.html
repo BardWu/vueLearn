@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- v-on 指令 用途：用来绑定事件  比如：v-on:click 缩写 @click ，点击事件。 -->
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/vue.js"></script>
+		<style>
+			 #inner{
+				height: 500px;
+				background-color: blue;
+			} 
+			 #app{
+				height: 500px;
+				background-color: blue;
+			} 
+		</style>
+	</head>
+	<body>
+		<!-- 1: -->
+		<!-- 点击button按钮会触发的事件：执行btn方法后又执行inner方法 -->
+		<!-- <div id="inner" @click='inner'>
+			<input type="button" value="点击" @click="btn"/>
+		</div> -->
+		<!--@click.stop 点击事件：执行btn方法后，不往外层进行冒泡 -->
+		 <div id="outer" @click='outer'>
+			 <div id="inner" @click='inner'>
+			 	<input type="button" value="点击" @click.stop="btn"/>
+			 </div>
+			
+			<!--  2:
+			.prevent：阻止标签的默认行为
+				1.a 标签要被vue控制必须要在 id=outernei
+				2.点击a标签后，先执行ahref的点击事件，然后在调到百度
+			 -->
+			<!-- <a href="http://www.baidu.com" @click="ahref">go baidu</a> -->
+			<!--@click.prevent="ahref" 阻止了a标签的默认行为，只执行ahref按钮点击事件  -->
+			<a href="http://www.baidu.com" @click.prevent="ahref">go baidu</a>
+		
+			
+		</div> 
+		<!-- 3: -->
+		<!--.capture 捕获事件，不加.capture,点击  btn2，先执行btn2事件，然后冒泡执行app事件，加了过后，先执行app事件，后执行btn2事件-->
+		<!-- @click.capture 先执行btn2点击事件，然后执行inner事件，由内向外，而不加 -->
+		<!-- <div id="app" @click.capture="app">
+			   <input type="button" value="点击" @click="btn2"/>a
+			 </div> -->
+			 
+		<!-- 4:-->
+		<!--.self 只当事件在该元素本身（比如不是子元素）触发时触发回调-->
+		<!-- 点击btn2按钮，不会触发app按钮事件 -->
+		<!-- <div id="app" @click.self="app">
+			   <input type="button" value="点击" @click="btn2"/>a
+	    </div> -->
+		
+		<!-- 4: once 事件触发一次  prevent导致第一次按钮点击后，不跳转百度，但执行点击事件，once导致点击第二次，点击按钮和.prevent失效，结果是不出现点击事件，但跳转百度-->
+		<div id="app" @click.self="app">
+				<a href="http://www.baidu.com" @click.once.prevent="ahref">go baidu</a>
+		<div>
+	
+		
+		<script>
+			var vm = new Vue({
+					el:'#app',//选择器,vue实例要控制的区域,可以控制该区域中所有的内容
+					//data就是 MVVM中的 M,专门用来保存每个页面的数据
+					data:{//data属性中,存放的是el中要用到的数据
+						msg:'欢迎学习vue' //通过Vue提供的指令,很方便就能把数据渲染到页面上
+					},
+					methods:{
+						 inner(){
+							console.log("触发了inner事件")
+						},
+						btn(){
+							console.log("触发了btn事件")
+						}, 
+						ahref(){
+							console.log("触发了a标签点击事件")
+						},
+						btn2(){
+							console.log("触发了btn2事件")
+						},
+						btn2(){
+							console.log("触发了btn2事件")
+						},
+						app(){
+							console.log("触发了app事件")
+						}
+					}
+				})
+			
+		</script>
+	</body>
+</html>

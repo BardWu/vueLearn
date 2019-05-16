@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 测试 v-clock、v-text、v-html 、v-blind 、v-on-->
+		<!-- 1 导入js -->
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{msg}}</p>			<!-- <h1> this is h1 </h1> -->
+			<p v-clock>++++{{msg}}+++</p>  <!-- ++++<h1> this is h1 </h1>+++-->
+			<p v-text="msg">+++++++++++</p> <!-- <h1> this is h1 </h1>-->
+			<p v-html="msg">++++++++++++++++</p> <!-- this is h1--> <!-- 解析h1-->
+			<input type="button" value="按钮" v-bind:title="mytile+'123'">  <!-- 按钮显示的title: this is titel 123-->
+			<!-- v-bind:指令可以被简写为 ：要绑定的属性 -->
+			<!-- 简化如下 ： <input type="button" value="按钮" :title="mytile+'123'">  -->
+			
+			<!-- v-on:指令  用来绑定事件   比如：v-on:click 缩写 @click-->
+			<input type="button" value="按钮" v-on:click="show">
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el:"#app", /* 控制的区域*/
+				data:{  /* 区域中的数据 */
+					msg:"<h1> this is h1 </h1>",
+					mytile:"this is title"
+				},
+				methods:{//这个methods属性定义了当前vue实例所有的方法
+					show:function(){
+						alert("this is click")
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

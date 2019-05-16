@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--单向绑定 可以通过修改vm中的内容，修改页面上的内容，实现了从M到V的单向绑定 -->
+			<h1>{{msg1}}</h1>
+			<input  type="" name="我是V1 模型" v-bind:value="msg1" />
+			<!-- 在页面上修改input标签里的内容，同时浏览器内存中vm对应的msg1值也变了，实现了V-M的单向绑定，同时本身就具有M-V。所以v-model具有双项绑定功能。 -->
+			<!-- v-model只适合表单元素的双项绑定 -->
+			<input  type="" name="我是V1 模型" v-model="msg1" />
+		</div>
+		<script>
+			var vm =new Vue({
+				el:'#app',
+				data:{
+					msg1:"我是数据 M"
+				}
+			})
+			
+		</script>
+	</body>
+</html>
